@@ -18,11 +18,15 @@
 				+ "__common__attachment__1"];
 		var fileInput2 = form["file__article__" + param.id
 				+ "__common__attachment__2"];
+		var fileInput3 = form["file__article__" + param.id
+				+ "__common__attachment__3"];
 
 		var deleteFileInput1 = form["deleteFile__article__" + param.id
 				+ "__common__attachment__1"];
 		var deleteFileInput2 = form["deleteFile__article__" + param.id
 				+ "__common__attachment__2"];
+		var deleteFileInput3 = form["deleteFile__article__" + param.id
+				+ "__common__attachment__3"];
 
 		if (deleteFileInput1.checked) {
 			fileInput1.value = '';
@@ -30,6 +34,10 @@
 
 		if (deleteFileInput2.checked) {
 			fileInput2.value = '';
+		}
+
+		if (deleteFileInput3.checked) {
+			fileInput3.value = '';
 		}
 
 		form.title.value = form.title.value.trim();
@@ -67,10 +75,19 @@
 			}
 		}
 
+		if (fileInput3.value) {
+			if (fileInput3.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				return;
+			}
+		}
+
 		var startUploadFiles = function(onSuccess) {
-			if (fileInput1.value.length == 0 && fileInput2.value.length == 0) {
+			if (fileInput1.value.length == 0 && fileInput2.value.length == 0
+					&& fileInput3.value.length == 0) {
 				if (deleteFileInput1.checked == false
-						&& deleteFileInput2.checked == false) {
+						&& deleteFileInput2.checked == false
+						&& deleteFileInput3.checked == false) {
 					onSuccess();
 					return;
 				}
@@ -100,6 +117,7 @@
 			form.fileIdsStr.value = fileIdsStr;
 			fileInput1.value = '';
 			fileInput2.value = '';
+			fileInput3.value = '';
 
 			form.submit();
 		});
@@ -189,6 +207,32 @@
 					<div class="form-control-box">
 						<label><input type="checkbox"
 							name="deleteFile__article__${article.id}__common__attachment__2"
+							value="Y" /> 삭제 </label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부 파일 3</th>
+				<td>
+					<div class="form-control-box">
+						<input type="file" accept="image/*"
+							name="file__article__${article.id}__common__attachment__3" />
+					</div> <c:if
+						test="${article.extra.file__common__attachment['3'] != null}">
+						<div class="img-box">
+							<img
+								src="/usr/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+								alt="" />
+						</div>
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부 파일 3 삭제</th>
+				<td>
+					<div class="form-control-box">
+						<label><input type="checkbox"
+							name="deleteFile__article__${article.id}__common__attachment__3"
 							value="Y" /> 삭제 </label>
 					</div>
 				</td>

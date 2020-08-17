@@ -218,6 +218,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th>첨부3 이미지</th>
+					<td>
+						<div class="form-control-box">
+							<input type="file" accept="image/*"
+								name="file__reply__0__common__attachment__3">
+						</div>
+					</td>
+				</tr>
+				<tr>
 					<th>작성</th>
 					<td><input class="btn btn-primary" type="submit" value="작성">
 					</td>
@@ -382,6 +391,7 @@
 
 		var fileInput1 = form['file__reply__' + id + '__common__attachment__1'];
 		var fileInput2 = form['file__reply__' + id + '__common__attachment__2'];
+		var fileInput2 = form['file__reply__' + id + '__common__attachment__3'];
 
 		var deleteFileInput1 = form["deleteFile__reply__" + id
 			+ "__common__attachment__1"];
@@ -569,7 +579,7 @@
 		html += '<div class="visible-on-sm-down">날짜 : ' + reply.regDate + '</div>';
 		html += '<div class="visible-on-sm-down">작성 : ' + reply.extra.writer + '</div>';
 
-		for ( var fileNo = 1; fileNo <= 2; fileNo++ ) {
+		for ( var fileNo = 1; fileNo <= 3; fileNo++ ) {
 			html += '<div class="video-box" data-video-name="reply__' + reply.id + '__common__attachment__' + fileNo + '" data-file-no="' + fileNo + '">';
 
 			if ( reply.extra.file__common__attachment && reply.extra.file__common__attachment[fileNo] ) {
@@ -578,6 +588,7 @@
 				html += '<video controls src="/usr/file/streamVideo?id=' + file.id + '&updateDate=' + file.updateDate + '">video not supported</video>';
 	        }
 			else {
+				html += '<img src="/usr/file/showImg?id=' + file.id + '&updateDate=' + file.updateDate + '/>';
 			}
 
 			html += '</div>';
